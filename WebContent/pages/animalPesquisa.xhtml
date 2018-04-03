@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{animalBean.pesquisar}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form>
+
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value=" Animal | Listar -------------- " />
+					<p:button value="Novo" outcome="/pages/animal.xhtml">
+						<f:param name="acao" value="Novo" />
+					</p:button>
+				</f:facet>
+			</p:toolbar>
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado"
+				value="#{animalBean.animais}"
+				filteredValue="#{animalBean.animaisFilter}" var="cursor">
+
+				<p:column headerText="Id" width="40">
+					<h:outputText value="#{cursor.idAnimal}" />
+				</p:column>
+
+				<p:column headerText="Nome" filterBy="#{cursor.nomeAnimal}"
+					sortBy="#{cursor.nomeAnimal}">
+					<h:outputText value="#{cursor.nomeAnimal}" />
+				</p:column>
+
+				<p:column headerText="Raça" width="150" filterBy="#{cursor.raca}"
+					sortBy="#{cursor.raca}">
+					<h:outputText value="#{cursor.raca}" />
+				</p:column>
+
+				<p:column headerText="Classificação" width="150"
+					filterBy="#{cursor.classificacao}" sortBy="#{cursor.classificacao}">
+					<h:outputText value="#{cursor.classificacao}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:button title="Editar Animal" value="Editar"
+						outcome="/pages/animal.xhtml">
+						<f:param name="codigo" value="#{cursor.idAnimal}" />
+						<f:param name="acao" value="Editar" />
+					</p:button>
+
+					<p:button title="Excluir Animal" value="Excluir"
+						outcome="/pages/animal.xhtml">
+						<f:param name="codigo" value="#{cursor.idAnimal}" />
+						<f:param name="acao" value="Excluir" />
+					</p:button>
+
+					<p:button title="Vacinar Animal" value="Vacinar"
+						outcome="/pages/animalVacinarGado.xhtml">
+						<f:param name="codigo" value="#{cursor.idAnimal}" />
+						<f:param name="acao" value="Vacinar" />
+					</p:button>
+
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

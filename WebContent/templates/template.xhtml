@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:insert name="metadata"/>
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Controle e Gerenciamento Veterinário</title>
+	<h:outputStylesheet library="css" name="estilos.css"/>
+</h:head>
+<h:body>
+	
+	<p:growl id="msgGlobal" isticky="true"/>
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="105" resizable="false"
+			closable="false" collapsible="false" style="background: #E6E7E8;">
+
+			<h:graphicImage library="img" name="Logo.png"
+				style="margin: 10px; padding: 0; " />
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south"
+			header="&copy; Desenvolvido por ANDRÉ HENRIQUE - 2018."
+			resizable="false" closable="false" collapsible="false">
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" header="Menu Principal" size="200"
+			resizable="false" closable="false" collapsible="false">
+			<h:form id="frmMenuPrincipal">
+				
+				<p:panelMenu id="pnlMenuPrincipal" rendered="#{autenticacaoBean.usuarioLogado.cpf != null}">
+
+					<p:submenu label="Arquivo">
+						<p:menuitem value="Principal" outcome="/pages/principal.xhtml"/>
+						<p:menuitem value="Sair" action="#{autenticacaoBean.sair()}"/>
+					</p:submenu>
+
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Animais" outcome="/pages/animalPesquisa.xhtml"/>
+						<p:menuitem value="Usuários" outcome="/pages/usuarioPesquisa.xhtml"/>
+						<p:menuitem value="Vacinas" outcome="/pages/vacinaPesquisa.xhtml"/>
+					</p:submenu>
+
+					<p:submenu label="Relatórios">
+						<p:menuitem value="Cartão de Vacina" outcome="/pages/relatorioCartaoVacina.xhtml"/>
+						<p:menuitem value="Estoque de Vacinas" outcome="/pages/relatorioEstoqueVacina.xhtml"/>
+					</p:submenu>
+
+				</p:panelMenu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<ui:insert name="corpo" />
+		</p:layoutUnit>
+
+	</p:layout>
+
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+</h:body>
+</html>

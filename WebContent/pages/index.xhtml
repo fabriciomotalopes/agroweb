@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="corpo">
+		<div
+			style="margin-top: 180px; padding-left: 350px; padding-top: 20px; padding-bottom: 20px; background: #E6E7E8; min-width: 300px">
+			<h:form id="frmLogin">
+				<h:panelGrid columns="2">
+
+					<p:outputLabel value="CPF: " />
+					<p:inputMask maxlength="14" size="25" mask="999.999.999-99" 
+						value="#{autenticacaoBean.usuarioLogado.cpf}">
+						<f:validateBean />
+					</p:inputMask>
+
+					<p:outputLabel value="Senha: " />
+					<p:password maxlength="20" size="25"
+						value="#{autenticacaoBean.usuarioLogado.senha}">
+						<f:validateBean />
+					</p:password>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<p:commandButton value="Logar"
+						action="#{autenticacaoBean.autenticar()}" update=":msgGlobal :frmMenuPrincipal:pnlMenuPrincipal" />
+				</h:panelGrid>
+
+
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

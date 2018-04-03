@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{usuarioBean.pesquisar}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form>
+
+			<p:toolbar style="">
+				<f:facet name="left">
+					<h:outputText value=" Usuário | Listar -------------- " />
+					<p:button value="Novo"
+						outcome="/pages/usuario.xhtml" >
+						<f:param name="acao" value="Novo" />
+					</p:button>
+				</f:facet>
+			</p:toolbar>
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado"
+				value="#{usuarioBean.usuarios}"
+				filteredValue="#{usuarioBean.usuariosFilter}" var="cursor">
+
+				<p:column headerText="Id" width="40">
+					<h:outputText value="#{cursor.idUsuario}" />
+				</p:column>
+
+				<p:column headerText="Nome" filterBy="#{cursor.nome}"
+					sortBy="#{cursor.nome}">
+					<h:outputText value="#{cursor.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" width="150" filterBy="#{cursor.cpf}"
+					sortBy="#{cursor.cpf}">
+					<h:outputText value="#{cursor.cpf}" />
+				</p:column>
+
+				<p:column headerText="E-mail">
+					<h:outputText value="#{cursor.email}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:button title="Editar Usuário" value="Editar"
+						outcome="/pages/usuario.xhtml">
+						<f:param name="codigo" value="#{cursor.idUsuario}" />
+						<f:param name="acao" value="Editar" />
+					</p:button>
+
+					<p:button title="Excluir Usuário" value="Excluir"
+						outcome="/pages/usuario.xhtml">
+						<f:param name="codigo" value="#{cursor.idUsuario}" />
+						<f:param name="acao" value="Excluir" />
+					</p:button>
+
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

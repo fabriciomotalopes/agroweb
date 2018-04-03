@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{cartaoDeVacinaBean.acao}" />
+			<f:viewParam name="codigo" value="#{cartaoDeVacinaBean.codigo}" />
+			<f:event listener="#{cartaoDeVacinaBean.carregarAnimalVacinar}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form id="frmAnimalVacinarGado">
+
+			<p:tabView>
+
+				<p:tab title="Vacinar Animal">
+
+					<h:panelGrid columns="2" cellpadding="10">
+
+						<p:outputLabel value="id:" />
+						<h:outputText value="#{cartaoDeVacinaBean.animal.idAnimal}" />
+
+						<p:outputLabel value="Nome" />
+						<h:outputText value="#{cartaoDeVacinaBean.animal.nomeAnimal}" />
+
+						<p:outputLabel value="peso" />
+						<h:outputText value="#{cartaoDeVacinaBean.animal.peso}" />
+
+						<p:outputLabel value="Data de Nascimento:" />
+						<h:outputText value="#{cartaoDeVacinaBean.animal.dataNascimento}">
+							<f:convertDateTime locale="pt" pattern="dd/MM/yyyy" />
+
+						</h:outputText>
+
+						<p:outputLabel value="Data da Vacina: " />
+						<p:calendar locale="pt" pattern="dd/MM/yyyy"
+							placeholder="00/00/0000"
+							value="#{cartaoDeVacinaBean.cartaoDeVacina.dataVacina}">
+							<f:validateBean />
+						</p:calendar>
+
+						<p:outputLabel value="Selecione a Vacina a ser Aplicada: " />
+						<p:selectOneMenu value="#{cartaoDeVacinaBean.vacina}"
+							converter="vacinaConverter">
+							<f:selectItem itemValue="" itemLabel="Selecione uma Vacina" />
+							<f:selectItems value="#{cartaoDeVacinaBean.vacinas}" var="vacina"
+								itemValue="#{vacina}" itemLabel="#{vacina.nomeVacina}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+
+			<h:panelGrid columns="4" style="border:0px">
+
+				<p:commandButton value="Vacinar Animal"
+					action="#{cartaoDeVacinaBean.vacinarGado}"
+					update=":msgGlobal" />
+
+
+				<p:button value="Voltar" outcome="/pages/animalPesquisa.xhtml" />
+
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

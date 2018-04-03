@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{relatorioBean.cartaoDeVacina}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form>
+
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value=" Relatório Cartão de Vacina " />
+				</f:facet>
+			</p:toolbar>
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado"
+				value="#{relatorioBean.animais}"
+				filteredValue="#{relatorioBean.animaisFilter}" var="cursor">
+
+				<p:column headerText="Id">
+					<h:outputText value="#{cursor.idAnimal}" />
+				</p:column>
+
+				<p:column headerText="Nome" filterBy="#{cursor.nomeAnimal}"
+					sortBy="#{cursor.nomeAnimal}">
+					<h:outputText value="#{cursor.nomeAnimal}" />
+				</p:column>
+
+				<p:column headerText="Raça" filterBy="#{cursor.raca}"
+					sortBy="#{cursor.raca}">
+					<h:outputText value="#{cursor.raca}" />
+				</p:column>
+
+				<p:column headerText="Gênero">
+					<h:outputText value="#{cursor.genero}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:button value="Visualizar Vacinas"
+						outcome="relatorioVisualizarCartaoVacina.xhtml">
+						<f:param name="codigo" value="#{cursor.idAnimal}" />
+						<f:param name="acao" value="Comprar" />
+					</p:button>
+
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

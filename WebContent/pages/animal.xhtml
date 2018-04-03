@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{animalBean.acao}" />
+			<f:viewParam name="codigo" value="#{animalBean.codigo}" />
+			<f:event listener="#{animalBean.carregarAnimal}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form id="frmAnimal">
+
+			<p:tabView>
+
+				<p:tab title="Animal">
+
+					<h:panelGrid columns="2" cellpadding="6">
+
+						<p:outputLabel value="Id: " />
+						<p:inputText maxlength="20" size="10" readonly="true"
+							value="#{animalBean.animal.idAnimal}" />
+
+						<p:outputLabel value="Nome: " />
+						<p:inputText maxlength="40" size="60"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							value="#{animalBean.animal.nomeAnimal}">
+							<f:validateBean />
+						</p:inputText>
+
+						<p:outputLabel value="Raça: " />
+						<p:inputText maxlength="40" size="60"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							placeholder="Ex: Nelore"
+							value="#{animalBean.animal.raca}">
+							<f:validateBean />
+						</p:inputText>
+
+						<p:outputLabel value="Data de Nascimento: " />
+						<p:calendar locale="pt" pattern="dd/MM/yyyy"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							placeholder="00/00/0000"
+							value="#{animalBean.animal.dataNascimento}">
+							<f:validateBean />
+						</p:calendar>
+
+						<p:outputLabel value="Peso: " />
+						<p:inputText size="20" placeholder="300.00"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							value="#{animalBean.animal.peso}">
+							<f:validateBean />
+						</p:inputText>
+
+						<p:outputLabel value="Gênero: " />
+						<p:inputText maxlength="1" size="10" placeholder="Ex: M/F"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							value="#{animalBean.animal.genero}">
+							<f:validateBean />
+						</p:inputText>
+
+						<p:outputLabel value="Classificação: " />
+						<p:inputText maxlength="12" size="30"
+							readonly="#{animalBean.acao == 'Excluir'}"
+							placeholder="Ex: Corte/Leiteiro"
+							value="#{animalBean.animal.classificacao}">
+							<f:validateBean />
+						</p:inputText>
+
+					</h:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+
+			<h:panelGrid columns="3">
+
+				<p:commandButton value="Salvar"
+					rendered="#{animalBean.acao == 'Novo'}"
+					actionListener="#{animalBean.salvar}"
+					update=":msgGlobal :frmAnimal" />
+
+				<p:commandButton value="Editar"
+					rendered="#{animalBean.acao == 'Editar'}"
+					action="#{animalBean.editar}" update=":msgGlobal" />
+
+				<p:commandButton value="Excluir"
+					rendered="#{animalBean.acao == 'Excluir'}"
+					action="#{animalBean.excluir}" update=":msgGlobal" />
+
+				<p:button value="Voltar" outcome="/pages/animalPesquisa.xhtml" />
+
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

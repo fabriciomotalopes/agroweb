@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{relatorioBean.acao}" />
+			<f:viewParam name="codigo" value="#{relatorioBean.codigo}" />
+			<f:event listener="#{relatorioBean.carregarVacina}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form id="formComprarVacinas">
+
+			<p:tabView>
+
+				<p:tab title="Vacina Comprada">
+
+					<h:panelGrid columns="2" cellpadding="10">
+
+						<p:outputLabel value="Id: " />
+						<h:outputText value="#{relatorioBean.vacina.idVacina}" />
+
+						<p:outputLabel value="Nome: " />
+						<h:outputText value="#{relatorioBean.vacina.nomeVacina}" />
+
+						<p:outputLabel value="Descrição: " />
+						<h:outputText value="#{relatorioBean.vacina.descricaoVacina}" />
+
+						<p:outputLabel value="Fabricante: " />
+						<h:outputText value="#{relatorioBean.vacina.fabricante}" />
+
+						<p:outputLabel value="Dosagem: " />
+						<h:outputText value="#{relatorioBean.vacina.dosagem}" />
+
+						<p:outputLabel value="Quantidade de Doses Compradas: " />
+						<p:inputText maxlength="10" size="20" value="#{relatorioBean.quatidadeDeDosesCompradas}" />
+
+					</h:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+
+			<h:panelGrid columns="3">
+				<p:commandButton value="Registrar Compra"
+					action="#{relatorioBean.registrarCompra}" update=":msgGlobal" />
+					
+				<p:commandButton value="Voltar"
+					action="/pages/relatorioEstoqueVacina.xhtml?faces-redirect=true" />
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>
